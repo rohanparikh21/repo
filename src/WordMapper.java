@@ -70,24 +70,31 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, Text> {
 			String englishCheck = null;
 			// Checking if english word or not
 			try{
-				emit = false;
+				emit = true;
 				BufferedReader in = new BufferedReader(new FileReader(
 			              "/usr/share/dict/words"));
-				while((englishCheck = in.readLine()) != null){
-					if(englishCheck.indexOf(temp) != -1){
-						emit = true;
-					}
-				}
+				//while((englishCheck = in.readLine()) != null){
+				//	if(englishCheck.indexOf(temp) != -1){
+				//		emit = true;
+				//	}
+				//}
 				in.close();
 			}catch(IOException e){
 				e.printStackTrace();
 			}
 			for(int i=0; i<stopwords.length; i++){
-				if(st.nextToken() == stopwords[i]){
+				if(temp == stopwords[i]){
 					emit = false;
 				}
 			}
-			word.set(temp);
+			// Stemming the word by using porter stemmer
+			Stemmer s = new Stemmer();
+			char[]  chars = temp.toCharArray();
+			for(int i=0; i<chars.length; i++){
+				s.add(chars[i]);
+			}
+			s.stem();
+			word.set(s.toString());
 		}
 		count++;
 		if(emit){
