@@ -32,13 +32,26 @@ public class SumReducer extends Reducer<Text, Text, Text, Text> {
 		 */
 		
 		String reduced = "";
+		Text previous=values(0);
+		int count=0;
 		for (Text value : values) {
 		  
 		  /*
 		   * Add the value to the word count counter for this key.
-		   */
-			reduced = reduced + " " +value.toString();
+		   */if(previous!=value)
+		   {
+		   	count++;
+		   	previous=value;
+		   }
+		   else
+		   {
+		   	reduced = reduced + " " +previous.toString() + " " +  count;
+		   	count=1;
+		   	previous=value;
+		   }
+			
 		}
+		reduced = reduced + " " +previous.toString() + " " +  count;
 		System.out.println(key.toString());
 		System.out.println(reduced);
 		/*
