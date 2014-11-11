@@ -74,21 +74,19 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, Text> {
 				emit = false;
 				System.out.println(emit);
 			}
-			// Wanted to check for english words but at the end commented it because english words don't contain my name :(. Just kidding :)
-			/* Checking if english word or not
+			// Checking if english word or not
 			try{
 				BufferedReader in = new BufferedReader(new FileReader(
 			              "/usr/share/dict/words"));
-				while((englishCheck = in.readLine()) != null){
-					if(englishCheck.indexOf(temp) != -1){
-						emit = true;
-					}
-				}
+				//while((englishCheck = in.readLine()) != null){
+				//	if(englishCheck.indexOf(temp) != -1){
+				//		emit = true;
+				//	}
+				//}
 				in.close();
 			}catch(IOException e){
 				e.printStackTrace();
-			}*/
-			// Check if the word is from the list of stop words
+			}
 			for(int i=0; i<stopwords.length; i++){
 				if(temp == stopwords[i]){
 					emit = false;
@@ -112,4 +110,3 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, Text> {
 	
   }
 }
-
