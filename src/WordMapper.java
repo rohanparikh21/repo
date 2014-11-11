@@ -66,11 +66,16 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, Text> {
 		}
 		else{
 			emit = true;
-			String temp = st.nextToken();
+			String temp = st.nextToken().toLowerCase();
 			String englishCheck = null;
+			System.out.println(temp);
+			if(!temp.matches("[a-zA-Z]+")){
+				System.out.print(temp);
+				emit = false;
+				System.out.println(emit);
+			}
 			// Checking if english word or not
 			try{
-				emit = true;
 				BufferedReader in = new BufferedReader(new FileReader(
 			              "/usr/share/dict/words"));
 				//while((englishCheck = in.readLine()) != null){

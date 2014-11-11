@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.Reducer;
  *   The data type of the output key
  *   The data type of the output value
  */   
-public class SumReducer extends Reducer<Text, Text, Text, IntWritable> {
+public class SumReducer extends Reducer<Text, Text, Text, Text> {
 
   /*
    * The reduce method runs once for each key received from
@@ -26,23 +26,25 @@ public class SumReducer extends Reducer<Text, Text, Text, IntWritable> {
   @Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		int wordCount = 0;
 		
 		/*
 		 * For each value in the set of values passed to us by the mapper:
 		 */
+		
+		String reduced = "";
 		for (Text value : values) {
 		  
 		  /*
 		   * Add the value to the word count counter for this key.
 		   */
-			wordCount += 1;
+			reduced = reduced + " " +value.toString();
 		}
-		
+		System.out.println(key.toString());
+		System.out.println(reduced);
 		/*
 		 * Call the write method on the Context object to emit a key
 		 * and a value from the reduce method. 
 		 */
-		context.write(key, new IntWritable(wordCount));
+		context.write(key, new Text(reduced));
 	}
 }
