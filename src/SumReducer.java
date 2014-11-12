@@ -40,7 +40,7 @@ public class SumReducer extends Reducer<Text, Text, Text, Text> {
 	  previous = a.get(0);
 	  int count = 0;
 	  for(int i=0; i<a.size(); i++){
-		  if(a.get(i) == previous){
+		  if(a.get(i).equals(previous)){
 			  count++;
 			  previous = a.get(i);
 		  }

@@ -4,6 +4,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.conf.Configuration;
 
 /* 
  * MapReduce jobs are typically implemented by using a driver class.
@@ -33,7 +34,9 @@ public class WordCount {
     /*
      * Instantiate a Job object for your job's configuration.  
      */
-    Job job = new Job();
+    Configuration conf = new Configuration();
+    conf.setLong("mapred.task.timeout", 0);
+    Job job = new Job(conf);
     
     /*
      * Specify the jar file that contains your driver, mapper, and reducer.

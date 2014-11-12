@@ -69,7 +69,7 @@ public class WordMapper extends Mapper<LongWritable, Text, Text, Text> {
 			String temp = st.nextToken().toLowerCase();
 			String englishCheck = null;
 			System.out.println(temp);
-			if(temp.matches("[a-zA-Z]+")){
+			if(!temp.matches("[a-zA-Z]+")){
 				System.out.print(temp);
 				emit = false;
 				System.out.println(emit);
